@@ -32,7 +32,6 @@ class DF_Pages:
         options = client_options.ClientOptions(api_endpoint="us-east1-dialogflow.googleapis.com:443")
         self.pages_client = PagesAsyncClient(client_options=options)
 
-
     # [START dialogflow_cx_create_page]
     def create_page_request(self, project_id, agent_id, flow_id, location, display_name):
         page = Page()
@@ -75,7 +74,6 @@ class DF_Pages:
 
         return await self.pages_client.get_page(request=request)
 
-
     # [START dialogflow_cx_list_page]
     async def list_page(self, project_id, agent_id, flow_id, location):
         pages_client = PagesAsyncClient()
@@ -90,9 +88,7 @@ class DF_Pages:
         response = await self.pages_client.list_pages(request=request)
         return response
 
-
     # [END dialogflow_cx_list_page]
-
 
     # [START dialogflow_cx_delete_page]
     async def delete_page(self, project_id, agent_id, flow_id, page_id, location):
@@ -103,7 +99,6 @@ class DF_Pages:
 
         response = await self.pages_client.delete_page(request=request)
         return response
-
 
     # [END dialogflow_cx_delete_page]
 
