@@ -28,6 +28,7 @@ def convert_true_routes(routes):
 
 
 async def main():    
+    # TODO: convert to config
     pages_to_retrieve = ["d095605e-0bb6-440f-bd56-865a23000db0", 
                          "2e2f0773-e6d1-4af4-9838-e7338da8b416", 
                          "8d986159-4aea-4370-a7b3-05d2d5ff865a"]
