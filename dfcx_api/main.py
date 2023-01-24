@@ -12,7 +12,6 @@ operator_mappings = {
     "<=": ">=",
 }
 
-
 def convert_true_routes(routes):
     for route in routes:
         condition_index = len(route) -1
@@ -25,7 +24,6 @@ def convert_true_routes(routes):
                 if operator in previous_condition:
                     condition = previous_condition.replace(operator, operator_mappings[operator]) 
                     route[condition_index].condition = condition
-
 
 async def main():    
     # TODO: convert to config
@@ -42,8 +40,7 @@ async def main():
     # get pages
     # pages = await asyncio.gather(manage_pages.get_page(project_id, agent_id, flow_id, location, page) for page in pages_to_retrieve)
     pages = [await df_pages.get_page(project_id, agent_id, flow_id, location, page) for page in pages_to_retrieve]
-    
-    # get fulfillments
+  
     all_fulfillments = []
     all_routes = []
     all_route_groups = []
@@ -58,7 +55,6 @@ async def main():
         convert_true_routes(all_routes)
         all_parameters.append(page.form.parameters)
         all_event_handlers.append(page.event_handlers)
-        # get webhooks...or they are already in the fulfillments collection
 
     # create new page
     request = df_pages.create_page_request(project_id,
@@ -76,11 +72,9 @@ async def main():
     response = await df_pages.send_page_request(request)
     print(response)
 
+    # TODO:
     # document original pages
-
     # delete original pages
-
-
 
 if __name__ == "__main__":
     options = client_options.ClientOptions(api_endpoint="us-east1-dialogflow.googleapis.com:443")
