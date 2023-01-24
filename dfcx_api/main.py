@@ -47,21 +47,33 @@ async def main():
     all_routes = []
     all_route_groups = []
     all_parameters = []
+    all_event_handlers = []
     for page in pages:
         print(page.display_name)
-        all_fulfillments.append(page.entry_fulfillment)
 
+        all_fulfillments.append(page.entry_fulfillment)
         all_route_groups.append(page.transition_route_groups)
         all_routes.append(page.transition_routes)
         convert_true_routes(all_routes)
         all_parameters.append(page.form.parameters)
-        # get event handlers
-
-        # get webhooks
+        all_event_handlers.append(page.event_handlers)
+        # get webhooks...or they are already in the fulfillments collection
 
     # create new page
+    request = df_pages.create_page_request(project_id,
+                                           agent_id,
+                                           flow_id,
+                                           location,
+                                           'ConsolidatedPage')
 
     # add object collections to page
+    request.page.entry_fulfillment = df_pages.consolidate_fulfillments(all_fulfillments)
+    request.page.transition_route_groups =  df_pages.consolidate_route_groups(all_route_groups)
+    request.page.transition_routes = df_pages.consolidate_routes(all_routes)
+    request.page.event_handlers =  df_pages.consolidate_event_handlers(all_event_handlers)
+
+    response = await df_pages.send_page_request(request)
+    print(response)
 
     # document original pages
 
