@@ -52,7 +52,8 @@ async def main():
         all_fulfillments.append(page.entry_fulfillment)
         all_route_groups.append(page.transition_route_groups)
         all_routes.append(page.transition_routes)
-        convert_true_routes(all_routes)
+        convert_true_routes(all_routes) # TODO
+         #not great. Non-deterministic. needs fixed.
         all_parameters.append(page.form.parameters)
         all_event_handlers.append(page.event_handlers)
 
