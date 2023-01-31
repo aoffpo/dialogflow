@@ -13,6 +13,8 @@ from google.cloud.dialogflowcx_v3.types.page import (
     Page
 )
 
+import json
+
 class DF_Pages:
 
     def __init__(self):
@@ -43,8 +45,6 @@ class DF_Pages:
         response = await self.pages_client.create_page(request=page_request)
         return response
 
-    # [END dialogflow_cx_create_page]
-
     async def get_page(self, project_id, agent_id, flow_id, location, page_guid):
         request = GetPageRequest()
         request.name = \
@@ -61,7 +61,6 @@ class DF_Pages:
 
         return await self.pages_client.get_page(request=request)
 
-    # [START dialogflow_cx_list_page]
     async def list_page(self, project_id, agent_id, flow_id, location):
         pages_client = PagesAsyncClient()
 
@@ -75,9 +74,6 @@ class DF_Pages:
         response = await self.pages_client.list_pages(request=request)
         return response
 
-    # [END dialogflow_cx_list_page]
-
-    # [START dialogflow_cx_delete_page]
     async def delete_page(self, project_id, agent_id, flow_id, page_id, location):
         pages_client = PagesAsyncClient()
 
@@ -124,3 +120,15 @@ class DF_Pages:
            for val in h:
                 event_handlers.append(val) 
         return event_handlers
+
+    def add_json_to_fulfillment_preset(self, payload):
+         fulfillment = Fulfillment()
+
+         parameter = { "parameter": "QueryAccountByPhone",
+                       "value": json.dumps(payload)}
+         fulfillment.set_parameter_actions.append(parameter)
+         return fulfillment
+
+    #def increment_variable_on_route()
+
+   
